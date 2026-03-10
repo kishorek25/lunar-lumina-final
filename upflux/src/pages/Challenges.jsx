@@ -143,9 +143,11 @@ function Challenges() {
   };
 
   const cardStyle = {
-    backgroundColor: "#fff",
-    borderRadius: "10px",
-    boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+    backgroundColor: "var(--bg-glass)",
+    backdropFilter: "blur(24px)",
+    borderRadius: "20px",
+    border: "1px solid var(--border-light)",
+    boxShadow: "var(--shadow-md)",
     padding: "24px",
     marginBottom: "20px",
   };
@@ -159,148 +161,165 @@ function Challenges() {
 
   const levelBtnStyle = (unlocked, completed) => ({
     padding: "16px",
-    borderRadius: "8px",
-    border: completed ? "2px solid #10b981" : unlocked ? "2px solid #6366f1" : "1px solid #e5e7eb",
-    backgroundColor: completed ? "#ecfdf5" : unlocked ? "#eef2ff" : "#f3f4f6",
-    color: unlocked ? "#4338ca" : "#9ca3af",
+    borderRadius: "12px",
+    border: completed ? "2px solid #10b981" : unlocked ? "2px solid var(--brand-primary)" : "1px solid var(--border-light)",
+    backgroundColor: completed ? "#ecfdf5" : unlocked ? "var(--bg-secondary)" : "var(--bg-primary)",
+    color: unlocked ? "var(--text-primary)" : "var(--text-muted)",
     cursor: unlocked ? "pointer" : "not-allowed",
     fontWeight: 600,
     fontSize: "14px",
+    transition: "all 0.2s ease",
   });
 
   const optionBtnStyle = (opt) => ({
     display: "block",
     width: "100%",
-    padding: "12px 16px",
-    marginBottom: "8px",
-    borderRadius: "8px",
-    border: selectedAnswer === opt ? "2px solid #6366f1" : "1px solid #e5e7eb",
-    backgroundColor: selectedAnswer === opt ? "#eef2ff" : "#fff",
+    padding: "14px 18px",
+    marginBottom: "10px",
+    borderRadius: "12px",
+    border: selectedAnswer === opt ? "2px solid var(--brand-primary)" : "1px solid var(--border-light)",
+    backgroundColor: selectedAnswer === opt ? "var(--brand-light)" : "var(--bg-secondary)",
+    color: "var(--text-primary)",
     cursor: "pointer",
     textAlign: "left",
-    fontSize: "14px",
+    fontSize: "15px",
+    transition: "all 0.2s ease",
   });
 
   const submitBtnStyle = {
     marginTop: "16px",
-    padding: "10px 24px",
-    backgroundColor: "#6366f1",
+    padding: "12px 28px",
+    backgroundColor: "var(--brand-primary)",
     color: "white",
     border: "none",
-    borderRadius: "6px",
+    borderRadius: "12px",
     cursor: selectedAnswer ? "pointer" : "not-allowed",
     opacity: selectedAnswer ? 1 : 0.6,
-    fontWeight: 600,
+    fontWeight: 700,
+    boxShadow: selectedAnswer ? "var(--shadow-md)" : "none",
+    transition: "all 0.2s ease",
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f9fafb" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-app)" }}>
       <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div style={containerStyle}>
-      <h2>Challenges</h2>
-      <p style={{ color: "#6b7280", marginBottom: "8px" }}>
-        Complete levels 1–20. Each level has one question. Unlock the next level by answering correctly.
-      </p>
-
-      {error && (
-        <div style={{ padding: "12px", backgroundColor: "#fef2f2", color: "#b91c1c", borderRadius: "8px", marginBottom: "16px" }}>
-          {error}
-        </div>
-      )}
-
-      {!currentChallenge && !loadingChallenge && (
-        <div style={cardStyle}>
-          <h3>Select a Level</h3>
-          {loadingProgress ? (
-            <p>Loading progress...</p>
-          ) : (
-            <div style={levelGridStyle}>
-              {Array.from({ length: 20 }, (_, i) => i + 1).map((level) => {
-                const unlocked = unlockedLevels.includes(level);
-                const completed = (progress?.completedLevels || []).includes(level);
-                return (
-                  <button
-                    key={level}
-                    style={levelBtnStyle(unlocked, completed)}
-                    onClick={() => unlocked && startLevel(level)}
-                    disabled={!unlocked}
-                  >
-                    Level {level}
-                    {completed && " ✓"}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
-
-      {loadingChallenge && (
-        <div style={cardStyle}>
-          <p>Generating challenge...</p>
-        </div>
-      )}
-
-      {currentChallenge && !result && (
-        <div style={cardStyle}>
-          <p style={{ color: "#6b7280", fontSize: "13px", marginBottom: "8px" }}>
-            Level {currentChallenge.level} • {currentChallenge.difficulty}
-          </p>
-          <h3>{currentChallenge.question}</h3>
-          <div style={{ marginTop: "16px" }}>
-            {["A", "B", "C", "D"].map((opt) => (
-              <button
-                key={opt}
-                style={optionBtnStyle(opt)}
-                onClick={() => setSelectedAnswer(opt)}
-              >
-                {opt}. {currentChallenge.options?.[opt]}
-              </button>
-            ))}
-          </div>
+        <div style={{ marginBottom: "16px" }}>
           <button
-            style={submitBtnStyle}
-            onClick={submitAnswer}
-            disabled={!selectedAnswer}
-          >
-            Submit Answer
-          </button>
-        </div>
-      )}
-
-      {result && (
-        <div style={cardStyle}>
-          <h3>{result.isCorrect ? "Correct!" : "Incorrect"}</h3>
-          <p>
-            Your answer: {result.userAnswer}. Correct answer: {result.correctAnswer}.
-          </p>
-          <p style={{ marginTop: "12px" }}>{result.explanation}</p>
-          {result.timeBonus > 0 && (
-            <p style={{ color: "#10b981", marginTop: "8px" }}>Time bonus: +{result.timeBonus} XP</p>
-          )}
-          {result.nextLevelUnlocked && (
-            <p style={{ color: "#6366f1", marginTop: "8px", fontWeight: 600 }}>
-              Next level unlocked!
-            </p>
-          )}
-          <button
+            onClick={() => window.history.back()}
             style={{
-              marginTop: "20px",
-              padding: "10px 24px",
-              backgroundColor: "#6366f1",
-              color: "white",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer",
-              fontWeight: 600,
+              background: "var(--bg-secondary)", border: "1px solid var(--border-light)",
+              borderRadius: "12px", padding: "8px 16px", color: "var(--text-secondary)",
+              cursor: "pointer", fontSize: "14px", fontWeight: 600, transition: "var(--transition-fast)",
             }}
-            onClick={resetAndBack}
-          >
-            Back to Levels
-          </button>
+            onMouseEnter={e => e.currentTarget.style.background = "var(--bg-glass-hover)"}
+            onMouseLeave={e => e.currentTarget.style.background = "var(--bg-secondary)"}
+          >← Back</button>
         </div>
-      )}
+        <h2>Challenges</h2>
+        <p style={{ color: "#6b7280", marginBottom: "8px" }}>
+          Complete levels 1–20. Each level has one question. Unlock the next level by answering correctly.
+        </p>
+
+        {error && (
+          <div style={{ padding: "12px", backgroundColor: "#fef2f2", color: "#b91c1c", borderRadius: "8px", marginBottom: "16px" }}>
+            {error}
+          </div>
+        )}
+
+        {!currentChallenge && !loadingChallenge && (
+          <div style={cardStyle}>
+            <h3>Select a Level</h3>
+            {loadingProgress ? (
+              <p>Loading progress...</p>
+            ) : (
+              <div style={levelGridStyle}>
+                {Array.from({ length: 20 }, (_, i) => i + 1).map((level) => {
+                  const unlocked = unlockedLevels.includes(level);
+                  const completed = (progress?.completedLevels || []).includes(level);
+                  return (
+                    <button
+                      key={level}
+                      style={levelBtnStyle(unlocked, completed)}
+                      onClick={() => unlocked && startLevel(level)}
+                      disabled={!unlocked}
+                    >
+                      Level {level}
+                      {completed && " ✓"}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {loadingChallenge && (
+          <div style={cardStyle}>
+            <p>Generating challenge...</p>
+          </div>
+        )}
+
+        {currentChallenge && !result && (
+          <div style={cardStyle}>
+            <p style={{ color: "#6b7280", fontSize: "13px", marginBottom: "8px" }}>
+              Level {currentChallenge.level} • {currentChallenge.difficulty}
+            </p>
+            <h3>{currentChallenge.question}</h3>
+            <div style={{ marginTop: "16px" }}>
+              {["A", "B", "C", "D"].map((opt) => (
+                <button
+                  key={opt}
+                  style={optionBtnStyle(opt)}
+                  onClick={() => setSelectedAnswer(opt)}
+                >
+                  {opt}. {currentChallenge.options?.[opt]}
+                </button>
+              ))}
+            </div>
+            <button
+              style={submitBtnStyle}
+              onClick={submitAnswer}
+              disabled={!selectedAnswer}
+            >
+              Submit Answer
+            </button>
+          </div>
+        )}
+
+        {result && (
+          <div style={cardStyle}>
+            <h3>{result.isCorrect ? "Correct!" : "Incorrect"}</h3>
+            <p>
+              Your answer: {result.userAnswer}. Correct answer: {result.correctAnswer}.
+            </p>
+            <p style={{ marginTop: "12px" }}>{result.explanation}</p>
+            {result.timeBonus > 0 && (
+              <p style={{ color: "#10b981", marginTop: "8px" }}>Time bonus: +{result.timeBonus} XP</p>
+            )}
+            {result.nextLevelUnlocked && (
+              <p style={{ color: "#6366f1", marginTop: "8px", fontWeight: 600 }}>
+                Next level unlocked!
+              </p>
+            )}
+            <button
+              style={{
+                marginTop: "20px",
+                padding: "10px 24px",
+                backgroundColor: "#6366f1",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: 600,
+              }}
+              onClick={resetAndBack}
+            >
+              Back to Levels
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

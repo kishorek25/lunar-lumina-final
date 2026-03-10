@@ -50,7 +50,7 @@ function Login() {
       });
 
       alert("Signup successful!");
-      navigate("/dashboard");
+      navigate("/academic-setup");
     } catch (error) {
       setSignupError(error.message);
     }
@@ -61,58 +61,51 @@ function Login() {
       await signInWithEmailAndPassword(auth, email, password);
       setSignupError("");
       alert("Login successful!");
-      navigate("/dashboard");
+      navigate("/academic-setup");
     } catch (error) {
       setSignupError(error.message);
     }
   };
 
   const buttonStyle = {
-    backgroundColor: '#4a4a4a',
+    background: 'var(--brand-primary)',
     color: 'white',
-    padding: '10px 20px',
+    padding: '12px 24px',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '12px',
     cursor: 'pointer',
     marginRight: '10px',
-    fontSize: '14px',
-    fontWeight: 'bold'
+    fontSize: '15px',
+    fontWeight: '700',
+    transition: 'all 0.2s',
+    boxShadow: 'var(--shadow-sm)',
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', textAlign: 'center' }}>
-      <div style={{ backgroundColor: '#f0f0f0', padding: '40px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', maxWidth: '400px', width: '100%' }}>
-        <Link to="/" style={{ ...buttonStyle, display: 'block', marginBottom: '20px', textAlign: 'center' }}>← Back to Home</Link>
-        <h1>Login</h1>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', textAlign: 'center', background: 'var(--bg-app)' }}>
+      <div style={{ background: 'var(--bg-glass)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-lg)', maxWidth: '400px', width: '100%', backdropFilter: 'blur(24px)' }}>
+        <Link to="/" style={{ ...buttonStyle, display: 'inline-block', marginBottom: '24px', textDecoration: 'none', background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-light)' }}>← Back to Home</Link>
+        <h1 style={{ color: 'var(--text-primary)', fontWeight: 800, marginBottom: '24px' }}>Welcome to Upflux</h1>
 
+        <div style={{ textAlign: 'left', marginBottom: '8px' }}>
+          <label style={{ color: 'var(--text-secondary)', fontSize: '13px', fontWeight: 600, marginLeft: '4px' }}>Email Address</label>
+        </div>
         <input
           type="email"
-          placeholder="Enter email"
+          placeholder="email@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{ width: '100%', padding: '10px', marginBottom: '15px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+          style={{ width: '100%', padding: '14px', marginBottom: '20px', borderRadius: '12px', border: '1px solid var(--border-light)', background: 'var(--bg-primary)', color: 'var(--text-primary)', boxSizing: 'border-box', outline: 'none' }}
         />
 
+        <div style={{ textAlign: 'left', marginBottom: '8px' }}>
+          <label style={{ color: 'var(--text-secondary)', fontSize: '13px', fontWeight: 600, marginLeft: '4px' }}>Password</label>
+        </div>
         <input
           type="password"
-          placeholder="Enter password"
+          placeholder="••••••••"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{ width: '100%', padding: '10px', marginBottom: '20px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
-        />
-
-        {signupError && (
-          <div style={{ 
-            color: '#dc2626', 
-            backgroundColor: '#fee2e2', 
-            padding: '10px', 
-            borderRadius: '5px', 
-            marginBottom: '15px', 
-            fontSize: '14px',
-            border: '1px solid #fecaca'
-          }}>
-            {signupError}
-          </div>
         )}
 
         <div>

@@ -1332,6 +1332,56 @@ No other text.`;
 
 
 
+// AI Study Plan Suggestion (Groq) - for weak topics in Performance Analytics
+app.post("/suggest-study-plan", async (req, res) => {
+  try {
+    const { weakTopics } = req.body;
+    if (!weakTopics || weakTopics.length === 0) {
+      return res.status(400).json({ error: "No weak topics provided" });
+    }
+
+    const groqStudy = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+    const prompt = `You are an expert CS tutor. A student is weak in these topics: ${weakTopics.join(", ")}.
+
+For EACH weak topic, suggest 2 high-quality study resources.
+
+Return ONLY this exact JSON array, no markdown, no extra text:
+[
+  {
+    "weakTopic": "topic name",
+    "name": "Resource title",
+    "description": "One sentence description of what this resource covers",
+    "url": "https://actual-working-url.com",
+    "type": "Video/Article/Course/Documentation",
+    "tip": "One short study tip for this topic"
+  }
+]
+
+Use REAL URLs from: MDN, GeeksForGeeks, W3Schools, YouTube, freeCodeCamp, Khan Academy, CS50, MIT OpenCourseWare, Coursera, or official docs.
+Return only valid JSON array. No other text.`;
+
+    const response = await groqStudy.chat.completions.create({
+      model: "llama-3.1-8b-instant",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.5,
+      max_tokens: 1500,
+    });
+
+    const content = response.choices[0].message.content;
+    const arrMatch = content.match(/\[[\s\S]*\]/);
+    if (!arrMatch) {
+      return res.status(500).json({ error: "Failed to parse AI response" });
+    }
+
+    const studyPlan = JSON.parse(arrMatch[0]);
+    res.json(studyPlan);
+  } catch (error) {
+    console.error("Study Plan Error:", error.message);
+    res.status(500).json({ error: "Failed to generate study plan" });
+  }
+});
+
 app.listen(PORT, () => {
 
   console.log(`Server running on port ${PORT}`);

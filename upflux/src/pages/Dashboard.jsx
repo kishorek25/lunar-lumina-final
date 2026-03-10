@@ -418,7 +418,6 @@ function Dashboard() {
 
   const pageStyle = {
     minHeight: "100vh",
-    backgroundColor: "#f9fafb",
   };
 
   const containerStyle = {
@@ -480,18 +479,19 @@ function Dashboard() {
   };
 
   const metricCardStyle = {
-    background: "#fff",
-    borderRadius: "14px",
+    background: "var(--bg-glass)",
+    backdropFilter: "blur(16px)",
+    borderRadius: "16px",
     padding: "22px 24px",
-    border: "1px solid #e5e7eb",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04)",
-    transition: "all 0.3s ease",
+    border: "1px solid var(--border-light)",
+    boxShadow: "var(--shadow-soft)",
+    transition: "var(--transition)",
     cursor: "default",
   };
 
   const metricLabelStyle = {
     fontSize: "12px",
-    color: "#9ca3af",
+    color: "var(--text-secondary)",
     textTransform: "uppercase",
     letterSpacing: "0.05em",
     marginBottom: "6px",
@@ -500,27 +500,29 @@ function Dashboard() {
   const metricValueStyle = {
     fontSize: "28px",
     fontWeight: 700,
-    color: "#111827",
+    color: "var(--text-primary)",
     margin: 0,
   };
 
   const cardStyle = {
-    background: "#fff",
-    borderRadius: "14px",
+    background: "var(--bg-glass)",
+    backdropFilter: "blur(16px)",
+    borderRadius: "16px",
     padding: "24px",
-    border: "1px solid #e5e7eb",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04)",
+    border: "1px solid var(--border-light)",
+    boxShadow: "var(--shadow-soft)",
     marginBottom: "24px",
   };
+
 
   const hoverLift = {
     onMouseEnter: (e) => {
       e.currentTarget.style.transform = "translateY(-4px) scale(1.02)";
-      e.currentTarget.style.boxShadow = "0 10px 30px -5px rgba(0,0,0,0.1)";
+      e.currentTarget.style.boxShadow = "var(--shadow-md)";
     },
     onMouseLeave: (e) => {
       e.currentTarget.style.transform = "translateY(0) scale(1)";
-      e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04)";
+      e.currentTarget.style.boxShadow = "var(--shadow-soft)";
     },
   };
 
@@ -586,10 +588,10 @@ function Dashboard() {
         {/* ─── Welcome Header ─── */}
         <div style={welcomeRowStyle}>
           <div>
-            <h1 style={{ fontSize: "26px", fontWeight: 700, color: "#111827", marginBottom: "4px" }}>
-              Welcome back
+            <h1 style={{ fontSize: "26px", fontWeight: 800, color: "var(--text-primary)", marginBottom: "4px" }}>
+              Welcome back 👋
             </h1>
-            <p style={{ fontSize: "15px", color: "#6b7280", margin: 0 }}>
+            <p style={{ fontSize: "15px", color: "var(--text-secondary)", margin: 0 }}>
               Track your learning progress with AI insights
             </p>
           </div>
@@ -644,10 +646,10 @@ function Dashboard() {
           <div style={{
             ...cardStyle,
             borderLeft: "4px solid #f59e0b",
-            background: "#FFFBEB",
+            background: "rgba(245,158,11,0.1)",
             padding: "14px 20px",
           }}>
-            <p style={{ color: "#92400e", fontSize: "14px", margin: 0, fontWeight: 500 }}>
+            <p style={{ color: "#fbbf24", fontSize: "14px", margin: 0, fontWeight: 500 }}>
               ⚡ Take a quiz today to keep your streak alive.
             </p>
           </div>
@@ -658,18 +660,18 @@ function Dashboard() {
           <button
             style={{
               ...actionBtnBase,
-              background: "#4F46E5",
+              background: "linear-gradient(135deg,#6366f1,#8b5cf6)",
               color: "#fff",
-              boxShadow: "0 4px 14px rgba(79, 70, 229, 0.25)",
+              boxShadow: "0 4px 16px rgba(99,102,241,0.4)",
             }}
             onClick={() => navigate("/quiz")}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 6px 20px rgba(79, 70, 229, 0.4)";
+              e.currentTarget.style.boxShadow = "0 8px 24px rgba(99,102,241,0.5)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 4px 14px rgba(79, 70, 229, 0.25)";
+              e.currentTarget.style.boxShadow = "0 4px 16px rgba(99,102,241,0.4)";
             }}
             onMouseDown={(e) => { e.currentTarget.style.transform = "scale(0.95)"; }}
             onMouseUp={(e) => { e.currentTarget.style.transform = "scale(1.05)"; }}
@@ -679,50 +681,47 @@ function Dashboard() {
           <button
             style={{
               ...actionBtnBase,
-              background: "#fff",
-              color: "#4F46E5",
-              border: "1.5px solid #4F46E5",
+              background: "rgba(255,255,255,0.08)",
+              color: "#818cf8",
+              border: "1.5px solid rgba(99,102,241,0.4)",
             }}
-            onClick={() => navigate("/study-planner")}
+            onClick={() => navigate("/ai-tutor")}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.background = "#EEF2FF";
-              e.currentTarget.style.boxShadow = "0 6px 20px rgba(79, 70, 229, 0.15)";
+              e.currentTarget.style.background = "rgba(99,102,241,0.15)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.background = "#fff";
-              e.currentTarget.style.boxShadow = "none";
+              e.currentTarget.style.background = "rgba(255,255,255,0.08)";
             }}
             onMouseDown={(e) => { e.currentTarget.style.transform = "scale(0.95)"; }}
             onMouseUp={(e) => { e.currentTarget.style.transform = "scale(1.05)"; }}
           >
-            📚 Study Planner
+            🤖 AI Tutor
           </button>
         </div>
 
         {/* ─── Topic Filter ─── */}
         <div style={{ ...cardStyle, animation: "dashboardSlideUp 0.5s ease both", animationDelay: "0.18s" }}>
-          <h3 style={{ marginBottom: "12px", fontSize: "16px" }}>Filter by Topic</h3>
+          <h3 style={{ marginBottom: "12px", fontSize: "16px", color: "#e2e8f0" }}>Filter by Topic</h3>
           <select
-            className="input-field"
-            style={{ maxWidth: "300px" }}
+            style={{ maxWidth: "300px", background: "rgba(255,255,255,0.08)", color: "#e2e8f0", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "10px", padding: "10px 14px", fontSize: "14px", outline: "none", width: "100%" }}
             value={selectedTopic}
             onChange={(e) => setSelectedTopic(e.target.value)}
           >
-            <option value="All">All Topics</option>
+            <option value="All" style={{ background: "#1e1b4b" }}>All Topics</option>
             {availableTopics.map((topic, index) => (
-              <option key={index} value={topic}>{topic}</option>
+              <option key={index} value={topic} style={{ background: "#1e1b4b" }}>{topic}</option>
             ))}
           </select>
-          <p style={{ marginTop: "12px", fontSize: "14px", color: "#6b7280" }}>
+          <p style={{ marginTop: "12px", fontSize: "14px", color: "#64748b" }}>
             Total Attempts: {displayAttempts.length}
           </p>
         </div>
 
         {displayAttempts.length === 0 && selectedTopic !== "All" && (
           <div style={cardStyle}>
-            <p style={{ color: "#6b7280" }}>No attempts found for {selectedTopic}. Take a quiz on this topic to see analytics.</p>
+            <p style={{ color: "#64748b" }}>No attempts found for {selectedTopic}. Take a quiz on this topic to see analytics.</p>
           </div>
         )}
 
@@ -735,11 +734,11 @@ function Dashboard() {
                 <p style={metricLabelStyle}>Learning Velocity</p>
                 <p style={metricValueStyle}>{velocity}</p>
                 {velocity !== "N/A" && (
-                  <div style={{ width: "100%", height: "8px", background: "#E5E7EB", borderRadius: "9999px", overflow: "hidden", marginTop: "10px" }}>
+                  <div style={{ width: "100%", height: "8px", background: "rgba(255,255,255,0.08)", borderRadius: "9999px", overflow: "hidden", marginTop: "10px" }}>
                     <div style={{
                       height: "100%",
                       borderRadius: "9999px",
-                      background: "linear-gradient(90deg, #4F46E5, #6366f1)",
+                      background: "linear-gradient(90deg, #6366f1, #8b5cf6)",
                       width: `${velocityPercent}%`,
                       transition: "width 0.7s ease",
                     }} />
@@ -790,15 +789,14 @@ function Dashboard() {
           </div>
         )}
 
-        {/* ─── AI Insights Error ─── */}
         {aiInsights && aiInsights.error && (
           <div style={{
             ...cardStyle,
             borderLeft: "4px solid #f59e0b",
-            background: "#FFFBEB",
+            background: "rgba(245,158,11,0.08)",
           }}>
-            <h3 style={{ marginBottom: "8px", fontSize: "16px" }}>AI Performance Analysis</h3>
-            <p style={{ color: "#92400e", fontSize: "14px" }}>
+            <h3 style={{ marginBottom: "8px", fontSize: "16px", color: "#fbbf24" }}>AI Performance Analysis</h3>
+            <p style={{ color: "#94a3b8", fontSize: "14px" }}>
               AI insights are currently unavailable. The backend server is not running.
               You can still use all other features including local analytics and performance tracking.
             </p>
@@ -888,11 +886,11 @@ function Dashboard() {
             {aiInsights.motivation && (
               <div style={{
                 ...cardStyle,
-                background: "#EEF2FF",
-                borderColor: "#c7d2fe",
+                background: "rgba(99,102,241,0.1)",
+                borderColor: "rgba(99,102,241,0.25)",
               }}>
-                <h4 style={{ marginBottom: "8px", fontSize: "15px" }}>💡 Motivation</h4>
-                <p style={{ fontStyle: "italic" }}>{aiInsights.motivation}</p>
+                <h4 style={{ marginBottom: "8px", fontSize: "15px", color: "#818cf8" }}>💡 Motivation</h4>
+                <p style={{ fontStyle: "italic", color: "#94a3b8" }}>{aiInsights.motivation}</p>
               </div>
             )}
           </div>
@@ -905,26 +903,27 @@ function Dashboard() {
             animation: "dashboardSlideUp 0.5s ease both",
             animationDelay: "0.35s",
           }}>
-            <h3 style={{ marginBottom: "16px", fontSize: "16px" }}>Accuracy Trend</h3>
+            <h3 style={{ marginBottom: "16px", fontSize: "16px", color: "#e2e8f0", fontWeight: 700 }}>📈 Accuracy Trend</h3>
             <div style={{ width: "100%", height: 300 }}>
               <ResponsiveContainer>
                 <AreaChart data={displayAttempts}>
                   <defs>
                     <linearGradient id="colorAccuracy" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
+                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
                       <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="attempt" tick={{ fontSize: 13 }} />
-                  <YAxis domain={[0, 100]} tick={{ fontSize: 13 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                  <XAxis dataKey="attempt" tick={{ fontSize: 13, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                  <YAxis domain={[0, 100]} tick={{ fontSize: 13, fill: "#64748b" }} axisLine={false} tickLine={false} />
                   <Tooltip
                     contentStyle={{
-                      background: "#fff",
-                      border: "1px solid #e5e7eb",
-                      borderRadius: "10px",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                      background: "rgba(15,12,41,0.95)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      borderRadius: "12px",
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
                       padding: "10px 14px",
+                      color: "#f1f5f9",
                     }}
                   />
                   <Area

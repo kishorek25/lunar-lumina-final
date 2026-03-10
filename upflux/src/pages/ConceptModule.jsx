@@ -11,14 +11,14 @@ function ConceptModule() {
 
   if (!module) {
     return (
-      <div style={{ minHeight: "100vh", backgroundColor: "#f9fafb" }}>
+      <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-app)" }}>
         <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div style={{ maxWidth: "896px", margin: "0 auto", padding: "24px" }}>
-          <h1 style={{ fontSize: "1.875rem", fontWeight: 700, color: "#1f2937" }}>
+          <h1 style={{ fontSize: "1.875rem", fontWeight: 700, color: "var(--text-primary)" }}>
             Module Not Found
           </h1>
-          <p style={{ color: "#6b7280", marginTop: "8px" }}>
+          <p style={{ color: "var(--text-secondary)", marginTop: "8px" }}>
             No learning module found for "<strong>{topic}</strong>".
           </p>
           <Link
@@ -26,13 +26,14 @@ function ConceptModule() {
             style={{
               display: "inline-block",
               marginTop: "16px",
-              padding: "8px 16px",
-              backgroundColor: "#6366f1",
+              padding: "10px 24px",
+              backgroundColor: "var(--brand-primary)",
               color: "#fff",
-              borderRadius: "8px",
+              borderRadius: "12px",
               textDecoration: "none",
               fontSize: "14px",
-              fontWeight: 500,
+              fontWeight: 600,
+              boxShadow: "var(--shadow-md)",
             }}
           >
             ← Back to Study Planner
@@ -43,31 +44,33 @@ function ConceptModule() {
   }
 
   const sectionStyle = {
-    backgroundColor: "#fff",
-    borderRadius: "12px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+    backgroundColor: "var(--bg-glass)",
+    backdropFilter: "blur(24px)",
+    borderRadius: "20px",
+    border: "1px solid var(--border-light)",
+    boxShadow: "var(--shadow-md)",
     padding: "24px",
-    marginBottom: "16px",
+    marginBottom: "20px",
   };
 
   const sectionTitleStyle = {
-    fontSize: "14px",
-    fontWeight: 600,
-    color: "#6366f1",
+    fontSize: "13px",
+    fontWeight: 700,
+    color: "var(--brand-primary)",
     textTransform: "uppercase",
-    letterSpacing: "0.05em",
-    marginBottom: "8px",
+    letterSpacing: "0.1em",
+    marginBottom: "12px",
   };
 
   const sectionTextStyle = {
     fontSize: "15px",
-    color: "#374151",
-    lineHeight: 1.7,
+    color: "var(--text-primary)",
+    lineHeight: 1.8,
     margin: 0,
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f9fafb" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-app)" }}>
       <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
@@ -75,18 +78,21 @@ function ConceptModule() {
         <Link
           to="/study-planner"
           style={{
-            color: "#6366f1",
+            color: "var(--brand-primary)",
             textDecoration: "none",
             fontSize: "14px",
-            fontWeight: 500,
-            marginBottom: "16px",
+            fontWeight: 600,
+            marginBottom: "24px",
             display: "inline-block",
+            transition: "all 0.2s",
           }}
+          onMouseEnter={e => e.currentTarget.style.color = "var(--brand-accent)"}
+          onMouseLeave={e => e.currentTarget.style.color = "var(--brand-primary)"}
         >
           ← Back to Study Planner
         </Link>
 
-        <h1 style={{ fontSize: "1.875rem", fontWeight: 700, color: "#1f2937", marginBottom: "24px" }}>
+        <h1 style={{ fontSize: "2.25rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "32px", letterSpacing: "-0.02em" }}>
           {module.title}
         </h1>
 
@@ -113,16 +119,20 @@ function ConceptModule() {
         <button
           onClick={() => window.print()}
           style={{
-            marginTop: "8px",
-            padding: "10px 20px",
-            backgroundColor: "#6366f1",
+            marginTop: "12px",
+            padding: "12px 28px",
+            backgroundColor: "var(--brand-primary)",
             color: "#fff",
             border: "none",
-            borderRadius: "8px",
+            borderRadius: "12px",
             fontSize: "15px",
-            fontWeight: 500,
+            fontWeight: 700,
             cursor: "pointer",
+            boxShadow: "var(--shadow-md)",
+            transition: "all 0.2s ease",
           }}
+          onMouseEnter={e => e.currentTarget.style.transform = "translateY(-1px)"}
+          onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
         >
           Download Module
         </button>

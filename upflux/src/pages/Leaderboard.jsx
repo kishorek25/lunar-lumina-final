@@ -162,6 +162,18 @@ function Leaderboard() {
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <main className="leaderboard-main">
+        <div style={{ marginBottom: "24px" }}>
+          <button
+            onClick={() => window.history.back()}
+            style={{
+              background: "var(--bg-secondary)", border: "1px solid var(--border-light)",
+              borderRadius: "12px", padding: "8px 16px", color: "var(--text-secondary)",
+              cursor: "pointer", fontSize: "14px", fontWeight: 600, transition: "var(--transition-fast)",
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = "var(--bg-glass-hover)"}
+            onMouseLeave={e => e.currentTarget.style.background = "var(--bg-secondary)"}
+          >← Back</button>
+        </div>
         <section className="leaderboard-header">
           <div>
             <h1 className="leaderboard-title">Leaderboard</h1>
@@ -174,27 +186,24 @@ function Leaderboard() {
             <div className="leaderboard-filters">
               <button
                 type="button"
-                className={`filter-chip ${
-                  filter === FILTERS.WEEK ? "filter-chip--active" : ""
-                }`}
+                className={`filter-chip ${filter === FILTERS.WEEK ? "filter-chip--active" : ""
+                  }`}
                 onClick={() => setFilter(FILTERS.WEEK)}
               >
                 This Week
               </button>
               <button
                 type="button"
-                className={`filter-chip ${
-                  filter === FILTERS.MONTH ? "filter-chip--active" : ""
-                }`}
+                className={`filter-chip ${filter === FILTERS.MONTH ? "filter-chip--active" : ""
+                  }`}
                 onClick={() => setFilter(FILTERS.MONTH)}
               >
                 This Month
               </button>
               <button
                 type="button"
-                className={`filter-chip ${
-                  filter === FILTERS.ALL_TIME ? "filter-chip--active" : ""
-                }`}
+                className={`filter-chip ${filter === FILTERS.ALL_TIME ? "filter-chip--active" : ""
+                  }`}
                 onClick={() => setFilter(FILTERS.ALL_TIME)}
               >
                 All Time
@@ -327,9 +336,8 @@ function Leaderboard() {
                   return (
                     <div
                       key={`${u.id}-${u.rank}`}
-                      className={`table-row leaderboard-row ${rankClass} ${
-                        isCurrent ? "row--current-user" : ""
-                      }`}
+                      className={`table-row leaderboard-row ${rankClass} ${isCurrent ? "row--current-user" : ""
+                        }`}
                     >
                       <span className="rank-cell">
                         <span className="rank-number">#{u.rank}</span>

@@ -1,128 +1,109 @@
-/* ===============================
-
-   🌟 GOOGLE FONT
-
-================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* ===============================
-
-   🎨 ROOT THEME VARIABLES
-
+   🎨 ROOT THEME VARIABLES - DARK
 ================================ */
 
 :root {
-
-  --bg-primary: #ffffff;
-
-  --bg-secondary: #F8FAFC;
-
-  --bg-glass: rgba(255, 255, 255, 0.8);
-
-
-
-  --text-primary: #111827;
-
-  --text-secondary: #4b5563;
-
-  --text-muted: #9ca3af;
-
-
-
-  --brand-primary: #4F46E5;
-
-  --brand-accent: #6366f1;
-
-  --brand-hover: #4338ca;
-
-  --brand-light: #EEF2FF;
-
-
-
-  --border-light: #e5e7eb;
-
-
-
-  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
-
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.05);
-
-  --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
-
-
-
-  --radius-sm: 8px;
-
-  --radius-md: 12px;
-
-  --radius-lg: 16px;
-
+  /* Common variables */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
   --radius-full: 9999px;
-
   --transition: all 0.3s ease;
-
   --transition-fast: all 0.2s ease;
 
+  --brand-primary: #6366f1;
+  --brand-accent: #818cf8;
+  --brand-hover: #4f46e5;
 }
 
+/* Dark Theme (Default) */
+[data-theme='dark'],
+:root:not([data-theme='light']) {
+  --bg-app: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  --bg-primary: rgba(255, 255, 255, 0.05);
+  --bg-secondary: rgba(255, 255, 255, 0.03);
+  --bg-glass: rgba(255, 255, 255, 0.08);
+  --bg-glass-hover: rgba(255, 255, 255, 0.12);
 
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+
+  --brand-light: rgba(99, 102, 241, 0.15);
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(99, 102, 241, 0.4);
+
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 40px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 60px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 24px rgba(99, 102, 241, 0.3);
+}
+
+/* Light Theme */
+[data-theme='light'] {
+  --bg-app: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --bg-body-color: #f8fafc;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-glass-hover: rgba(255, 255, 255, 0.9);
+  --bg-glass-solid: #ffffff;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  --brand-light: rgba(99, 102, 241, 0.1);
+  --border-light: rgba(15, 23, 42, 0.08);
+  --border-accent: rgba(99, 102, 241, 0.3);
+
+  --shadow-soft: 0 4px 20px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 8px 30px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 16px 50px rgba(15, 23, 42, 0.1);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
+}
 
 /* ===============================
-
    🧱 BASE STYLES
-
 ================================ */
 
 * {
-
   margin: 0;
-
   padding: 0;
-
   box-sizing: border-box;
-
 }
 
-
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-
-  background-color: var(--bg-secondary);
-
+  background: var(--bg-app);
+  background-attachment: fixed;
   color: var(--text-primary);
-
   font-family: 'Inter', sans-serif;
-
   min-height: 100vh;
-
   overflow-x: hidden;
-
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-
-
-h1, h2, h3, h4 {
-
-  font-weight: 600;
-
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
   letter-spacing: -0.5px;
-
   color: var(--text-primary);
-
 }
-
-
 
 p {
-
   color: var(--text-secondary);
-
   line-height: 1.6;
-
 }
+
 
 
 
@@ -488,17 +469,13 @@ p {
 
 .skeleton {
 
-  background: linear-gradient(
+  background: linear-gradient(90deg,
 
-    90deg,
+      #e5e7eb 25%,
 
-    #e5e7eb 25%,
+      #f3f4f6 50%,
 
-    #f3f4f6 50%,
-
-    #e5e7eb 75%
-
-  );
+      #e5e7eb 75%);
 
   background-size: 200% 100%;
 
@@ -556,9 +533,13 @@ p {
 
 @keyframes skeletonShimmer {
 
-  0% { background-position: 200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
 
-  100% { background-position: -200% 0; }
+  100% {
+    background-position: -200% 0;
+  }
 
 }
 
@@ -734,9 +715,14 @@ p {
 
 @keyframes streakGlow {
 
-  0%, 100% { box-shadow: 0 0 8px rgba(245, 158, 11, 0.3); }
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+  }
 
-  50% { box-shadow: 0 0 16px rgba(245, 158, 11, 0.5); }
+  50% {
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
+  }
 
 }
 
@@ -862,17 +848,29 @@ p {
 
 
 
-.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
 
-.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
 
 
 
 @keyframes typingPulse {
 
-  0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
 
-  30% { opacity: 1; transform: scale(1); }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
 
 }
 
@@ -886,9 +884,13 @@ p {
 
 @keyframes fadeIn {
 
-  from { opacity: 0; }
+  from {
+    opacity: 0;
+  }
 
-  to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 
 }
 
@@ -896,9 +898,15 @@ p {
 
 @keyframes slideDown {
 
-  from { transform: translateY(-40px); opacity: 0; }
+  from {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
 
-  to { transform: translateY(0); opacity: 1; }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
 }
 
@@ -906,9 +914,15 @@ p {
 
 @keyframes fadeUp {
 
-  from { transform: translateY(20px); opacity: 0; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
 
-  to { transform: translateY(0); opacity: 1; }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
 }
 
@@ -1172,7 +1186,7 @@ p {
 
   height: 10px;
 
-  background: rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.25);
 
   border-radius: var(--radius-full);
 
@@ -1188,7 +1202,7 @@ p {
 
   border-radius: var(--radius-full);
 
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
 
   transition: width 0.8s ease;
 
@@ -1310,7 +1324,8 @@ html {
 
 
 
-.chart-card h2, .chart-card h3 {
+.chart-card h2,
+.chart-card h3 {
 
   margin-bottom: 16px;
 
@@ -1443,34 +1458,73 @@ html {
 ================================ */
 
 @keyframes dashboardFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes dashboardSlideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15); }
-  50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.3); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+  }
 }
 
 @keyframes shimmerBar {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes countUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dash-gradient-text {
@@ -1483,6 +1537,7 @@ html {
 .dash-card-hover {
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .dash-card-hover:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
@@ -1500,38 +1555,66 @@ html {
 .dash-insight-enter {
   animation: dashboardSlideUp 0.4s ease both;
 }
-.dash-insight-enter:nth-child(1) { animation-delay: 0.05s; }
-.dash-insight-enter:nth-child(2) { animation-delay: 0.1s; }
-.dash-insight-enter:nth-child(3) { animation-delay: 0.15s; }
-.dash-insight-enter:nth-child(4) { animation-delay: 0.2s; }
-.dash-insight-enter:nth-child(5) { animation-delay: 0.25s; }
-.dash-insight-enter:nth-child(6) { animation-delay: 0.3s; }
+
+.dash-insight-enter:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.dash-insight-enter:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.dash-insight-enter:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.dash-insight-enter:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.dash-insight-enter:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.dash-insight-enter:nth-child(6) {
+  animation-delay: 0.3s;
+}
 
 /* ===============================
    💬 AI TUTOR CHAT ANIMATIONS
 ================================ */
 
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(8px); 
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes bounce {
-  0%, 20%, 53%, 80%, 100% {
+
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
     transform: translateY(0);
   }
-  40%, 43% {
+
+  40%,
+  43% {
     transform: translateY(-10px);
   }
+
   70% {
     transform: translateY(-5px);
   }
+
   90% {
     transform: translateY(-2px);
   }
@@ -1560,9 +1643,13 @@ html {
 
 /* Typing indicator specific animation */
 @keyframes typingDot {
-  0%, 60%, 100% {
+
+  0%,
+  60%,
+  100% {
     transform: translateY(0);
   }
+
   30% {
     transform: translateY(-10px);
   }
@@ -1572,9 +1659,17 @@ html {
   animation: typingDot 1.4s infinite;
 }
 
-.typing-dot:nth-child(1) { animation-delay: 0s; }
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+.typing-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
 
 /* Chat container smooth scrolling */
 .chat-container {
@@ -1654,4 +1749,3 @@ html {
   }
 
 }
-

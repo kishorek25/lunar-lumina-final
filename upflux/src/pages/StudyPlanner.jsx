@@ -9,12 +9,14 @@ function StudyPlanner() {
   const [expandedCategory, setExpandedCategory] = useState(null);
 
   const cardStyle = {
-    backgroundColor: "#fff",
-    borderRadius: "12px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+    background: "var(--bg-glass)",
+    backdropFilter: "blur(24px)",
+    border: "1px solid var(--border-light)",
+    borderRadius: "20px",
+    boxShadow: "var(--shadow-lg)",
     marginBottom: "16px",
-    border: "1px solid #e5e7eb",
     overflow: "hidden",
+    transition: "all 0.3s ease",
   };
 
   const headerStyle = {
@@ -23,14 +25,12 @@ function StudyPlanner() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#fafafa",
-    borderBottom: "1px solid #e5e7eb",
-    transition: "background-color 0.2s",
+    background: "var(--bg-secondary)",
+    borderBottom: "1px solid var(--border-light)",
+    transition: "all 0.2s ease",
   };
 
-  const contentStyle = {
-    padding: "20px",
-  };
+  const contentStyle = { padding: "20px" };
 
   const topicRowStyle = {
     display: "flex",
@@ -38,36 +38,49 @@ function StudyPlanner() {
     justifyContent: "space-between",
     gap: "16px",
     padding: "14px 16px",
-    borderRadius: "8px",
+    borderRadius: "12px",
     marginBottom: "8px",
-    backgroundColor: "#f9fafb",
-    border: "1px solid #e5e7eb",
-    transition: "background-color 0.2s",
+    background: "var(--bg-primary)",
+    border: "1px solid var(--border-light)",
+    transition: "all 0.2s ease",
   };
 
   const linkStyle = {
     flexShrink: 0,
-    padding: "6px 14px",
-    backgroundColor: "#6366f1",
+    padding: "7px 16px",
+    background: "var(--brand-primary)",
     color: "#fff",
-    borderRadius: "6px",
+    borderRadius: "10px",
     textDecoration: "none",
     fontSize: "13px",
-    fontWeight: 500,
+    fontWeight: 600,
     whiteSpace: "nowrap",
+    boxShadow: "var(--shadow-sm)",
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f9fafb" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg-app)" }}>
       <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div style={{ padding: "40px", maxWidth: "900px", margin: "0 auto" }}>
-        <h1 style={{ marginBottom: "8px", color: "#1f2937", fontSize: "28px" }}>
+        <div style={{ marginBottom: "20px" }}>
+          <button
+            onClick={() => window.history.back()}
+            style={{
+              background: "var(--bg-secondary)", border: "1px solid var(--border-light)",
+              borderRadius: "12px", padding: "8px 16px", color: "var(--text-secondary)",
+              cursor: "pointer", fontSize: "14px", fontWeight: 600, transition: "var(--transition-fast)",
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = "var(--bg-glass-hover)"}
+            onMouseLeave={e => e.currentTarget.style.background = "var(--bg-secondary)"}
+          >← Back</button>
+        </div>
+        <h1 style={{ marginBottom: "8px", color: "var(--text-primary)", fontSize: "28px", fontWeight: 800 }}>
           📚 Study Planner
         </h1>
-        <p style={{ color: "#6b7280", marginBottom: "28px", fontSize: "15px", lineHeight: 1.6 }}>
-          Unit-based curriculum from beginner to advanced. Click any topic to review it in the Lunar Lumina Learning Module.
+        <p style={{ color: "var(--text-secondary)", marginBottom: "28px", fontSize: "15px", lineHeight: 1.6 }}>
+          Unit-based curriculum from beginner to advanced. Click any topic to review it in the Learning Module.
         </p>
 
         {studyCurriculum.map((section) => {
@@ -84,19 +97,20 @@ function StudyPlanner() {
                 }
                 style={{
                   ...headerStyle,
-                  backgroundColor: isExpanded ? "#eef2ff" : "#fafafa",
+                  background: isExpanded ? "var(--brand-light)" : "var(--bg-secondary)",
+                  borderBottom: isExpanded ? "1px solid var(--brand-primary)" : "1px solid var(--border-light)",
                 }}
                 onMouseEnter={(e) => {
-                  if (!isExpanded) e.currentTarget.style.backgroundColor = "#f3f4f6";
+                  if (!isExpanded) e.currentTarget.style.background = "var(--bg-glass-hover)";
                 }}
                 onMouseLeave={(e) => {
-                  if (!isExpanded) e.currentTarget.style.backgroundColor = "#fafafa";
+                  if (!isExpanded) e.currentTarget.style.background = "var(--bg-secondary)";
                 }}
               >
-                <h2 style={{ margin: 0, fontSize: "18px", color: "#374151", fontWeight: 600 }}>
+                <h2 style={{ margin: 0, fontSize: "17px", color: isExpanded ? "var(--brand-primary)" : "var(--text-primary)", fontWeight: 700 }}>
                   {section.category}
                 </h2>
-                <span style={{ fontSize: "20px", color: "#6b7280", fontWeight: 300 }}>
+                <span style={{ fontSize: "20px", color: isExpanded ? "var(--brand-primary)" : "var(--text-muted)", fontWeight: 300 }}>
                   {isExpanded ? "−" : "+"}
                 </span>
               </div>
@@ -107,18 +121,14 @@ function StudyPlanner() {
                     <div
                       key={idx}
                       style={topicRowStyle}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "#f3f4f6";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "#f9fafb";
-                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(99,102,241,0.1)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
                     >
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: 600, color: "#1f2937", marginBottom: "4px" }}>
+                        <div style={{ fontWeight: 700, color: "var(--text-primary)", marginBottom: "4px" }}>
                           {idx + 1}. {topic.name}
                         </div>
-                        <div style={{ fontSize: "13px", color: "#6b7280", lineHeight: 1.5 }}>
+                        <div style={{ fontSize: "13px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
                           {topic.description}
                         </div>
                       </div>
@@ -142,16 +152,14 @@ function StudyPlanner() {
           );
         })}
 
-        <div
-          style={{
-            ...cardStyle,
-            backgroundColor: "#f0fdf4",
-            borderColor: "#86efac",
-            padding: "20px",
-          }}
-        >
-          <h3 style={{ margin: "0 0 12px 0", color: "#166534" }}>💡 Tips</h3>
-          <ul style={{ color: "#15803d", paddingLeft: "20px", margin: 0, lineHeight: 1.8 }}>
+        <div style={{
+          ...cardStyle,
+          background: "rgba(16,185,129,0.08)",
+          border: "1px solid rgba(16,185,129,0.2)",
+          padding: "20px",
+        }}>
+          <h3 style={{ margin: "0 0 12px 0", color: "#34d399" }}>💡 Tips</h3>
+          <ul style={{ color: "#6ee7b7", paddingLeft: "20px", margin: 0, lineHeight: 1.8 }}>
             <li>Follow topics in order within each category for best progression.</li>
             <li>Take a quiz after completing a section to reinforce learning.</li>
             <li>Check your Performance page for a personalized weak-topic study plan.</li>

@@ -53,12 +53,12 @@ function Profile() {
       await updateDoc(doc(db, "users", user.uid), {
         username: trimmedUsername
       });
-      
+
       setUserData({
         ...userData,
         username: trimmedUsername
       });
-      
+
       setEditMode(false);
       alert("Profile updated successfully!");
     } catch (error) {
@@ -67,16 +67,24 @@ function Profile() {
     }
   };
 
-  const page = { minHeight: "100vh", backgroundColor: "#f9fafb" };
-  const wrap = { maxWidth: "800px", margin: "0 auto", padding: "40px", animation: "dashboardFadeIn 0.5s ease both" };
-  const card = { background: "#fff", borderRadius: "16px", padding: "28px 32px", border: "1px solid #e5e7eb", boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04)", marginBottom: "24px", transition: "all 0.3s ease" };
-  const btn = { padding: "10px 22px", border: "none", borderRadius: "10px", cursor: "pointer", fontSize: "14px", fontWeight: 600, transition: "all 0.2s ease", marginRight: "10px" };
-  const primaryBtn = { ...btn, background: "#4F46E5", color: "#fff", boxShadow: "0 4px 14px rgba(79,70,229,0.25)" };
-  const secondaryBtn = { ...btn, background: "#f3f4f6", color: "#374151", border: "1px solid #e5e7eb" };
-  const inputStyle = { width: "100%", padding: "12px 16px", marginBottom: "16px", borderRadius: "10px", border: "1px solid #e5e7eb", boxSizing: "border-box", fontSize: "15px", outline: "none", transition: "border-color 0.2s ease" };
-  const infoRow = { display: "flex", alignItems: "center", gap: "12px", padding: "12px 0", borderBottom: "1px solid #f3f4f6" };
-  const infoLabel = { fontSize: "13px", color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.04em", minWidth: "120px" };
-  const infoValue = { fontSize: "15px", color: "#111827", fontWeight: 500 };
+  const page = { minHeight: "100vh", background: "var(--bg-app)" };
+  const wrap = { maxWidth: "800px", margin: "0 auto", padding: "40px 24px", animation: "dashboardFadeIn 0.5s ease both" };
+  const card = {
+    background: "var(--bg-glass)",
+    backdropFilter: "blur(24px)",
+    border: "1px solid var(--border-light)",
+    borderRadius: "20px", padding: "28px 32px",
+    boxShadow: "var(--shadow-lg)",
+    marginBottom: "24px", transition: "all 0.3s ease"
+  };
+  const btn = { padding: "10px 22px", border: "none", borderRadius: "12px", cursor: "pointer", fontSize: "14px", fontWeight: 600, transition: "all 0.2s ease", marginRight: "10px" };
+  const primaryBtn = { ...btn, background: "var(--brand-primary)", color: "#fff", boxShadow: "var(--shadow-md)" };
+  const secondaryBtn = { ...btn, background: "var(--bg-secondary)", color: "var(--text-secondary)", border: "1px solid var(--border-light)" };
+  const inputStyle = { width: "100%", padding: "12px 16px", marginBottom: "16px", borderRadius: "12px", border: "1px solid var(--border-light)", background: "var(--bg-secondary)", color: "var(--text-primary)", boxSizing: "border-box", fontSize: "15px", outline: "none", transition: "all 0.2s ease" };
+  const infoRow = { display: "flex", alignItems: "center", gap: "12px", padding: "12px 0", borderBottom: "1px solid var(--border-light)", opacity: "0.8" };
+  const infoLabel = { fontSize: "13px", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", minWidth: "120px" };
+  const infoValue = { fontSize: "15px", color: "var(--text-primary)", fontWeight: 500 };
+
 
   if (loading) {
     return (
@@ -84,6 +92,18 @@ function Profile() {
         <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div style={wrap}>
+          <div style={{ marginBottom: "20px" }}>
+            <button
+              onClick={() => window.history.back()}
+              style={{
+                background: "var(--bg-secondary)", border: "1px solid var(--border-light)",
+                borderRadius: "12px", padding: "8px 14px", color: "var(--text-secondary)",
+                cursor: "pointer", fontSize: "14px", fontWeight: 600, transition: "var(--transition-fast)",
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = "var(--bg-glass-hover)"}
+              onMouseLeave={e => e.currentTarget.style.background = "var(--bg-secondary)"}
+            >← Back</button>
+          </div>
           <div className="skeleton" style={{ height: "120px", borderRadius: "16px", marginBottom: "24px" }} />
           <div className="skeleton" style={{ height: "200px", borderRadius: "16px", marginBottom: "24px" }} />
           <div className="skeleton" style={{ height: "100px", borderRadius: "16px" }} />
@@ -131,7 +151,7 @@ function Profile() {
 
         {/* User Info Card */}
         <div className="dash-card-hover" style={{ ...card, animation: "dashboardSlideUp 0.5s ease both", animationDelay: "0.1s" }}>
-          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "20px", color: "#111827" }}>User Information</h2>
+          <h2 style={{ fontSize: "18px", fontWeight: 700, marginBottom: "20px", color: "var(--text-primary)" }}>User Information</h2>
 
           {editMode ? (
             <div>
@@ -142,8 +162,8 @@ function Profile() {
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                 style={inputStyle}
-                onFocus={(e) => { e.target.style.borderColor = "#6366f1"; e.target.style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)"; }}
-                onBlur={(e) => { e.target.style.borderColor = "#e5e7eb"; e.target.style.boxShadow = "none"; }}
+                onFocus={(e) => { e.target.style.borderColor = "var(--brand-primary)"; e.target.style.boxShadow = "var(--shadow-glow)"; }}
+                onBlur={(e) => { e.target.style.borderColor = "var(--border-light)"; e.target.style.boxShadow = "none"; }}
               />
               <div style={{ display: "flex", gap: "10px" }}>
                 <button
@@ -155,8 +175,8 @@ function Profile() {
                   Save Changes
                 </button>
                 <button onClick={() => setEditMode(false)} style={secondaryBtn}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "#e5e7eb"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "#f3f4f6"; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--bg-glass-hover)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "var(--bg-secondary)"; }}
                 >
                   Cancel
                 </button>
@@ -192,11 +212,12 @@ function Profile() {
 
         {/* Account Settings Card */}
         <div className="dash-card-hover" style={{ ...card, animation: "dashboardSlideUp 0.5s ease both", animationDelay: "0.2s" }}>
-          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "12px", color: "#111827" }}>Account Settings</h2>
-          <p style={{ color: "#6b7280", fontSize: "14px", lineHeight: 1.6 }}>
+          <h2 style={{ fontSize: "18px", fontWeight: 700, marginBottom: "12px", color: "var(--text-primary)" }}>Account Settings</h2>
+          <p style={{ color: "var(--text-secondary)", fontSize: "14px", lineHeight: 1.6 }}>
             Additional account settings and preferences will be available here in future updates.
           </p>
         </div>
+
       </div>
     </div>
   );
